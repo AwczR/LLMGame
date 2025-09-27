@@ -1,0 +1,27 @@
+# 核心
+torch               # 使用官方cu121/cu122轮子匹配你的CUDA
+torchvision
+torchaudio
+
+# 模型与训练
+transformers>=4.43.0
+accelerate>=0.31.0
+peft>=0.11.0
+bitsandbytes>=0.43.0          # 可选：8bit/4bit 量化加速
+trl>=0.9.0                    # 可选：若借用其PPO组件
+
+# 数值与工具
+numpy
+tqdm
+einops
+sentencepiece
+protobuf<5                    # 避免老版本Transformers的兼容问题
+datasets>=2.19.0
+evaluate
+
+# 高性能（可选，但推荐）
+flash-attn            # 4090可用，需匹配PyTorch/CUDA编译环境
+
+# 日志与可视化（可选）
+wandb
+rich

@@ -1,0 +1,56 @@
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C 扩展
+*.so
+
+# 环境
+.env
+.venv/
+env/
+venv/
+myenv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 构建和打包
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 日志和调试
+*.log
+*.out
+*.err
+
+# 模型文件
+*.pt
+*.bin
+*.ckpt
+*.h5
+*.onnx
+
+# 训练输出
+runs/
+wandb/
+.cache/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 配置（可选）

@@ -1,0 +1,49 @@
+model:
+  name: Qwen/Qwen2-1.5B-Instruct
+  dtype: bfloat16
+  use_lora: true
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_target_modules: ["q_proj","k_proj","v_proj","o_proj","gate_proj","up_proj","down_proj"]
+
+train:
+  seed: 42
+  iters: 1000
+  group_size: 6
+  max_steps: 40
+  step_penalty: 0.01
+  lr: 2.0e-5
+  weight_decay: 0.0
+  grad_clip: 1.0
+  clip_ratio: 0.2
+  epochs: 1
+  gen_max_tokens_action: 16     # 行为阶段生成长度上限（JSON短输出）
+  gen_max_tokens_predict: 256   # 预测矩阵阶段生成长度上限
+  temperature: 0.8
+  top_p: 0.95
+
+# JSON 格式奖励
+reward:
+  format_bonus_action: 0.02       # 行为JSON可解析则加分
+  format_bonus_prediction: 0.10   # 预测JSON可解析则加分
+
+curriculum:
+  p_target: 0.65
+  p_min: 0.55
+  p_max: 0.75
+  kp: 0.2
+  window: 100
+  rows_min: 10
+  cols_min: 20
+  rows_max: 30
+  cols_max: 60
+  noise_min: 0.0
+  noise_max: 0.25
+  blob_porosity_min: 0.0
+  blob_porosity_max: 0.4
+
+io:
+  out_dir: ./runs/20250926
+  log_every_groups: 5
+  save_every_groups: 500

@@ -1,0 +1,47 @@
+system: |
+  You are an agent in a grid game. The environment shows an ASCII matrix where a single digit shape
+  (digit in 1..9) is overlaid on a noisy background (other cells may be 0..9). You can move the
+  overlaid shape to inspect the grid and then output the final answer.
+
+  GOAL
+  - Infer the exact minimal bounding-box matrix of the shape itself.
+  - In that matrix, put the shape digit at shape cells and -1 at all non-shape cells.
+  - The bounding box must be minimal: at least one shape digit touches each of the four borders
+    (top, bottom, left, right) after trimming.
+  - Holes inside the shape may exist; you must match them exactly.
+
+  INTERACTION
+  - At each step you receive an observation (ASCII grid).
+  - You may EITHER return an ACTION JSON to continue observing,
+    OR return the FINAL JSON to finish and submit your answer.
+  - Valid actions move the shape on the grid:
+      "w" = up, "a" = left, "s" = down, "d" = right, "stop" = no move (use when you want to proceed).
+  - The episode terminates immediately after you submit the FINAL JSON.
+  - If the maximum number of steps is reached before you submit the FINAL JSON, the episode ends with zero reward.
+
+  OUTPUT FORMAT (STRICT)
+  - Return exactly ONE JSON object per step, with no extra text, no code fences.
+  - ACTION JSON schema:
+      {"action": "w" | "a" | "s" | "d" | "stop"}
+  - FINAL JSON schema:
+      {"matrix": [[int, ...], ...]}
+    where:
+      * matrix is a non-empty rectangular 2D array of integers;
+      * use only the single shape digit and -1;
+      * rows have equal length.
+
+  EVALUATION (for your awareness)
+  - Only the final submission is graded against the hidden ground truth.
+  - Format validity is also checked: invalid JSON yields no format bonus.
+  - Intermediate moves receive no task reward; a small step penalty may apply.
+
+unified_template: |
+  {
+    "observation": "{obs}",
+    "valid_actions": ["w","a","s","d","stop"],
+    "instructions": [
+      "Either continue by returning an ACTION JSON: {\"action\": \"w|a|s|d|stop\"}",
+      "Or finish by returning a FINAL JSON: {\"matrix\": [[...],[...]]}",
+      "Return exactly one JSON object, with no extra text."
+    ]
+  }
